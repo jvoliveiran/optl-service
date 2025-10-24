@@ -1,5 +1,5 @@
 import express from 'express';
-import db from './db';
+import db from './database/db';
 import { extractScopes, requireScope, AuthRequest } from './middleware/auth';
 import logger, { loggerMiddleware } from './utils/logger';
 
