@@ -1,5 +1,5 @@
 import express from 'express';
-import pool from './db';
+import db from './db';
 
 const app = express();
 const PORT = 3000;
@@ -10,7 +10,7 @@ app.get('/hello', (req, res) => {
 
 app.get('/db-test', async (req, res) => {
   try {
-    const result = await pool.query('SELECT NOW()');
+    const result = await db.raw('SELECT NOW()');
     res.json({ 
       message: 'Database connected!', 
       timestamp: result.rows[0].now 
