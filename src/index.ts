@@ -1,12 +1,14 @@
 import express from 'express';
 import db from './db';
+import { extractScopes, requireScope, AuthRequest } from './middleware/auth';
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+app.use(extractScopes);
 
-app.get('/users', async (req, res) => {
+app.get('/users', requireScope('users:read:all'), async (req: AuthRequest, res) => {
   try {
     const users = await db('users').select('*');
     res.json(users);
@@ -17,7 +19,7 @@ app.get('/users', async (req, res) => {
   }
 });
 
-app.get('/users/:id', async (req, res) => {
+app.get('/users/:id', requireScope('users:read'), async (req: AuthRequest, res) => {
   try {
     const { id } = req.params;
     const user = await db('users').where({ id }).first();
