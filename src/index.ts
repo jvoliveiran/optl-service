@@ -6,29 +6,27 @@ const PORT = 3000;
 
 app.use(express.json());
 
-app.get('/hello', (req, res) => {
-  res.json({ message: 'Hello World!' });
-});
-
-app.get('/db-test', async (req, res) => {
+app.get('/users', async (req, res) => {
   try {
-    const result = await db.raw('SELECT NOW()');
-    res.json({ 
-      message: 'Database connected!', 
-      timestamp: result.rows[0].now 
-    });
+    const users = await db('users').select('*');
+    res.json(users);
   } catch (error) {
     res.status(500).json({ 
-      message: 'Database connection failed', 
       error: error instanceof Error ? error.message : 'Unknown error'
     });
   }
 });
 
-app.get('/users', async (req, res) => {
+app.get('/users/:id', async (req, res) => {
   try {
-    const users = await db('users').select('*');
-    res.json(users);
+    const { id } = req.params;
+    const user = await db('users').where({ id }).first();
+    
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    
+    res.json(user);
   } catch (error) {
     res.status(500).json({ 
       error: error instanceof Error ? error.message : 'Unknown error'
