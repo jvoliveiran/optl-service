@@ -1,4 +1,5 @@
 import type { Knex } from 'knex';
+import path from 'path';
 
 const config: Knex.Config = {
   client: 'pg',
@@ -8,6 +9,10 @@ const config: Knex.Config = {
     user: 'postgres',
     password: 'postgres',
     database: 'optl_db',
+  },
+  migrations: {
+    directory: path.join(__dirname, 'migrations'),
+    extension: 'ts',
   },
 };
 
