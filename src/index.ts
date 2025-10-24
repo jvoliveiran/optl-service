@@ -1,3 +1,5 @@
+import './tracing';
+
 import express from 'express';
 import db from './database/db';
 import { extractScopes, requireScope, AuthRequest } from './middleware/auth';
