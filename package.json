@@ -8,7 +8,10 @@
     "dev:up": "docker compose up -d",
     "dev:down": "docker compose down",
     "migrate": "knex migrate:latest --knexfile src/knexfile.ts",
-    "migrate:rollback": "knex migrate:rollback --knexfile src/knexfile.ts"
+    "migrate:rollback": "knex migrate:rollback --knexfile src/knexfile.ts",
+    "simulate": "node simulate-requests.js",
+    "simulate:heavy": "node simulate-requests.js --requests 500 --concurrent 10",
+    "simulate:light": "node simulate-requests.js --requests 20 --delay 500"
   },
   "author": "",
   "license": "ISC",
@@ -16,14 +19,18 @@
     "@opentelemetry/api": "^1.9.0",
     "@opentelemetry/auto-instrumentations-node": "^0.66.0",
     "@opentelemetry/exporter-jaeger": "^2.2.0",
+    "@opentelemetry/exporter-metrics-otlp-http": "^0.207.0",
+    "@opentelemetry/exporter-prometheus": "^0.207.0",
     "@opentelemetry/exporter-trace-otlp-http": "^0.207.0",
     "@opentelemetry/resources": "^2.2.0",
+    "@opentelemetry/sdk-metrics": "^2.2.0",
     "@opentelemetry/sdk-node": "^0.207.0",
     "@opentelemetry/semantic-conventions": "^1.37.0",
     "dotenv": "^17.2.3",
     "express": "^4.18.2",
     "knex": "^3.1.0",
     "pg": "^8.16.3",
+    "prom-client": "^15.1.3",
     "winston": "^3.18.3"
   },
   "devDependencies": {

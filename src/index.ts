@@ -15,6 +15,9 @@ app.use(loggerMiddleware(logger));
 app.get('/users', requireScope('users:read:all'), async (req: AuthRequest, res) => {
   try {
     logger.info('Fetching all users');
+    
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
     const users = await db('users').select('*');
     logger.info(`Retrieved ${users.length} users`);
     res.json(users);
