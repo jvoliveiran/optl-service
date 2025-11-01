@@ -8,7 +8,10 @@
     "dev:up": "docker compose up -d",
     "dev:down": "docker compose down",
     "migrate": "knex migrate:latest --knexfile src/knexfile.ts",
-    "migrate:rollback": "knex migrate:rollback --knexfile src/knexfile.ts"
+    "migrate:rollback": "knex migrate:rollback --knexfile src/knexfile.ts",
+    "simulate": "node simulate-requests.js",
+    "simulate:heavy": "node simulate-requests.js --requests 500 --concurrent 10",
+    "simulate:light": "node simulate-requests.js --requests 20 --delay 500"
   },
   "author": "",
   "license": "ISC",
