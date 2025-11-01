@@ -2,6 +2,12 @@
 
 const https = require('http');
 
+const generateRandomUserData = () => ({
+    name: `User_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`,
+    email: `user_${Date.now()}_${Math.random().toString(36).substring(2, 15)}@example.com`
+  }
+);
+
 const ENDPOINTS = [
   {
     name: 'GET /users (All Users)',
@@ -22,10 +28,7 @@ const ENDPOINTS = [
     method: 'POST',
     path: '/users',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      name: `User_${Date.now()}`,
-      email: `user_${Date.now()}@example.com`
-    }),
+    body: JSON.stringify(generateRandomUserData()),
     weight: 25 // 25% of requests
   }
 ];
